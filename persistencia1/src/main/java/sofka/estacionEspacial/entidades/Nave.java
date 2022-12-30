@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.beans.ConstructorProperties;
 import java.io.Serializable;
 
 /*
@@ -14,7 +12,7 @@ Las etiquetas siguientes son para que con el @Entity lo reconozca como entidad e
 Las etiquetas @Getter y œSetter son para tener el còdigo màs limpio, se encarga de generar los getters y setter de la clase
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)// Se usa cuando hay herencia entre entidades
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)// Se usa cuando hay herencia entre entidades
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,7 +21,6 @@ public class Nave implements Serializable {
     @Id
     @Column(nullable = false)
     @EqualsAndHashCode.Include
-    @PrimaryKeyJoinColumn
     private String idNave;
     @Column(nullable = false,length =50)
     private String nombre;
