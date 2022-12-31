@@ -1,1 +1,0 @@
-insert into no_tripulada values ("3031",150.6,100.9,"Galileo",4,25.8,200.6,"celdas fotovoltaicas","NoTripulada","sonda");

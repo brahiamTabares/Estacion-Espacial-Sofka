@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:loadBundle basename="resources.application" var="msg" />
+
+<h:head>
+	<title><ui:insert name="title">#{msg['aplicacion.titulo']}</ui:insert></title>
+	<style type="text/css">
+.ui-growl {
+	position: fixed;
+	top: 40%;
+	left: 37%;
+	z-index: 9999;
+}
+.c1{
+	width: 110px;
+}
+.c2{
+	width: 100%;
+	font-size: 6em;
+	font-weight: bold;
+	text-align: center;
+}
+</style>
+	<ui:insert name="head" />
+</h:head>
+
+<body>
+	<ui:debug hotkey="x"
+		rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+
+	<h:panelGrid width="80%" style="aling:center; margin: 0 auto;">
+
+		<h:panelGrid bgcolor="#203350" width="100%" columns="2" columnClasses="c1, c2">
+			<p:column style="width: 101px;"><h:graphicImage url="#{resource['uniquindioLogo.png']}"></h:graphicImage></p:column>
+			<p:column style="font-size: 6em; font-weight: bold; text-align: center; width: 100%">#{msg['aplicacion.titulo']}</p:column>
+		</h:panelGrid>
+		<h:form>
+			<p:menubar rendered="#{seguridadBean.autenticado}">
+				<p:menuitem value="INICIO" action="/index.xhtml"
+					update=":panelContenido" icon="ui-icon-mail-closed" />
+				<p:menuitem value="NAVES" action="/nave/index.xhtml"
+							update=":panelContenido" icon="ui-icon-mail-closed" />
+
+
+			</p:menubar>
+		</h:form>
+
+
+		<h:panelGroup id="panelContenido" style="width:100%">
+
+			<h:panelGroup>
+				<ui:insert name="contenidoDefault">
+
+				</ui:insert>
+			</h:panelGroup>
+
+		</h:panelGroup>
+
+	</h:panelGrid>
+
+</body>
+
+</html>

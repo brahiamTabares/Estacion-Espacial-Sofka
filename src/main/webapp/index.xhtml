@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/WEB-INF/templates/templateAdmin.xhtml" >
+
+
+	<ui:define name="contenidoDefault">
+		<h:form id="registro">
+			<p:panelGrid columns="2">
+				<f:facet name="header">NAVES</f:facet>
+				<p:outputLabel for="nombre" value="Nombre" />
+				<p:inputText id="nombre" value="#{naveBean.nave.nombre}"
+					required="true" />
+			</p:panelGrid>
+			<p:commandButton value="ACEPTAR"
+				action="#{naveBean.registrar}" update=":registro,:datos:tabla" />
+			<p:growl />
+		</h:form>
+
+		<h:form id="datos">
+			<p:growl id="mensajes" />
+			<p:dataTable id="tabla" value="#{naveBean.naves}"
+				var="nave" border="1" paginator="true" rows="10"
+				editable="true">
+				<f:facet name="header"><h:outputText value="LISTA DE NAVES" /></f:facet>
+				<p:ajax event="rowEdit" listener="#{naveBean.onRowEdit}"
+					update=":datos:mensajes" />
+				<p:ajax event="rowEditCancel"
+					listener="#{naveBean.onRowCancel}" update=":datos:mensajes" />
+
+				<p:column headerText="Nombre"
+					filterBy="#{nave.nombre}" filterMatchMode="contains"
+					sortBy="#{nave.nombre}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{nave.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombre" value="#{nave.nombre}"
+								style="width:95%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:50px">
+					<p:rowEditor />
+
+					<p:commandButton type="submit" action="#{naveBean.eliminar(nave)}" immediate="true"
+									 icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-plain"
+									 update=":datos:mensajes,:datos:tabla"  >
+						<p:confirm header="#{msg['aplicacion.tituloDialogoConfirmar']}"
+								   message="#{msg['aplicacion.textoDialogoConfirmarEliminacion']}"
+								   icon="pi pi-exclamation-triangle"  />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

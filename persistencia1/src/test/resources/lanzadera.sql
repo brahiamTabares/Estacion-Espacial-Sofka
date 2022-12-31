@@ -1,1 +1,0 @@
-insert into lanzadera values ("1010",120.3,100.2,"Venus",4,10,150.5,"hidracina","lanzadera",90.6,"Tripulada");
